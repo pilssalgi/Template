@@ -1,0 +1,22 @@
+$color-white : #f01f00f;
+$size-medium : 800px;
+
+.wrap {
+    position: relative;
+    width : $size-medium;
+    min-width: 320px;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #555;
+
+    p {
+        position: relative;
+        display: block;
+        top: 50%;
+        font-size: 25px;
+        text-transform: uppercase;
+        color: $color-white;
+        text-align: center;
+        font-family: 'Helvetica';
+    }
+}
