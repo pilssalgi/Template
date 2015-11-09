@@ -26,17 +26,15 @@ gulp.task('server',['images','uglify','sass','minifyhtml'],function(){
 });
 
 gulp.task('clean', function(cb) {
-  clean(['public/images'],function(){});
+  clean(['public/'],function(){});
 });
 
 gulp.task('images',function() {
-	// clean(['public/images']).then(
-		gulp.src('src/images/**')
+	return gulp.src('src/images/**')
     .pipe(changed('public/images/')) // Ignore unchanged files
     .pipe(imagemin({cache:false})) // Optimize
     .pipe(gulp.dest('public/images/'))
     .pipe(browserSync.reload({stream:true}))
-	// )
 })
 
 gulp.task('minifyhtml',function(){
