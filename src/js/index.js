@@ -4,4 +4,4 @@
 
     module1();
     module2();
-})();
+}).call(this);
