@@ -13,13 +13,15 @@ module.exports = {
   copy: {
     src : [
       'src/**/*',
-      // '!src/js/lib/**',
+      '!src/**/base',
+      '!src/**/include',
+      '!src/**/include/**',
       '!src/css/base',
       '!src/**/*.coffee',
-      // '!src/**/*.{gif,jpeg,jpg,png,svg,webp}',
       '!src/**/*.jade',
       '!src/**/*.{sass,scss}'
     ],
+    watch : ['src/**/images/**','src/images/**'],
     dest : 'public/'
   },
 
@@ -31,13 +33,13 @@ module.exports = {
     watch : 'src/**/*.{sass,scss}',
     dest  : './',
     sass  : { indentedSyntax: false },  // Enable .sass syntax (.scss still works too)
-    autoprefixer: { browsers: ['last 3 version']},
+    autoprefixer: { browsers: ["last 3 versions", "Android > 4.1", "iOS > 7"]},
     extensions: ['scss', 'sass', 'css']
   },
 
   html : {
-    src   : '**/*.html',
-    watch : ['src/**/*.html', 'src/include/*'],
+    src   : ['src/**/*.html', '!src/**/include/**'],
+    watch : ['src/**/*.html', 'src/**/include/*.html'],
     dest  : ''
   },
 
