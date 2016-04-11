@@ -13,10 +13,10 @@ module.exports = {
   copy: {
     src : [
       'src/**/*',
-      '!src/js/lib/**',
+      // '!src/js/lib/**',
       '!src/css/base',
       '!src/**/*.coffee',
-      '!src/**/*.{gif,jpeg,jpg,png,svg,webp}',
+      // '!src/**/*.{gif,jpeg,jpg,png,svg,webp}',
       '!src/**/*.jade',
       '!src/**/*.{sass,scss}'
     ],
@@ -25,11 +25,11 @@ module.exports = {
 
   css : {
     src : [
-      'src/css/*.scss',
-      '!src/css/**/_*.scss'
+      'src/**/*.scss',
+      '!src/**/_*.scss'
     ],
     watch : 'src/**/*.{sass,scss}',
-    dest  : 'css',
+    dest  : './',
     sass  : { indentedSyntax: false },  // Enable .sass syntax (.scss still works too)
     autoprefixer: { browsers: ['last 3 version']},
     extensions: ['scss', 'sass', 'css']
@@ -37,7 +37,7 @@ module.exports = {
 
   html : {
     src   : '**/*.html',
-    watch : 'src/**/*.html',
+    watch : ['src/**/*.html', 'src/include/*'],
     dest  : ''
   },
 

@@ -16,7 +16,7 @@ gulp.task('js',function(){
   .bundle().on('error', handleErrors)
   .pipe(source('index.js'))
   .pipe(buffer())
-  // .pipe(uglify())
+  .pipe(uglify())
   .pipe(gulp.dest(dest))
   .pipe(browserSync.reload({stream:true}));
 });
