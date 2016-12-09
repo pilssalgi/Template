@@ -7,7 +7,8 @@ module.exports = {
   js : {
     src   : 'js',
     dest  : 'js',
-    watch : 'src/**/*.js'
+    watch : 'src/**/*.js',
+    files : ['src/js/index.js']
   },
 
   copy: {
@@ -17,6 +18,8 @@ module.exports = {
       '!src/**/include',
       '!src/**/include/**',
       '!src/css/base',
+      '!src/js/modules/',
+      '!src/js/modules/**',
       '!src/**/*.coffee',
       '!src/**/*.jade',
       '!src/**/*.{sass,scss}'

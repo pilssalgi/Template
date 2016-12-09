@@ -1,22 +1,19 @@
 var gulp        = require('gulp');
-var config      = require('../config');
-var path        = require('path');
+var webpack     = require('gulp-webpack');
 var uglify      = require('gulp-uglify');
-var browserify  = require('browserify');
-var source      = require('vinyl-source-stream');
-var buffer      = require('vinyl-buffer');
+var named       = require('vinyl-named');
+var through     = require('through');
 var browserSync = require('browser-sync');
-var handleErrors = require('../lib/handleErrors');
+var config      = require('../config');
+var dest        = config.base.dest;
 
-
-var dest = path.join(config.base.dest, config.js.dest);
-
-gulp.task('js',function(){
-  browserify('src/js/index.js')
-  .bundle().on('error', handleErrors)
-  .pipe(source('index.js'))
-  .pipe(buffer())
-  .pipe(uglify())
-  .pipe(gulp.dest(dest))
-  .pipe(browserSync.reload({stream:true}));
+gulp.task('js', function() {
+  return gulp.src(config.js.files,{ base: config.base.src })
+    .pipe(named(function(file) {
+      return file.relative.replace(/\.[^\.]+$/, '');
+    }))
+    .pipe(webpack())
+    .pipe(uglify())
+    .pipe(gulp.dest(dest))
+    .pipe(browserSync.reload({stream:true}));
 });

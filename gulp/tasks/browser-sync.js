@@ -1,6 +1,5 @@
 var gulp    = require('gulp');
 var config  = require('../config');
-var source      = require('vinyl-source-stream');
 var browserSync = require('browser-sync');
 
 

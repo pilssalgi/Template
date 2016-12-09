@@ -5,7 +5,7 @@ var path         = require('path');
 var sass         = require('gulp-sass');
 var sourcemaps   = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
-var minifycss    = require('gulp-minify-css');
+var cleanCSS    = require('gulp-clean-css');
 var handleErrors = require('../lib/handleErrors');
 var browserSync  = require('browser-sync');
 
@@ -22,7 +22,7 @@ gulp.task('scss', function() {
     .on('error', handleErrors)
     .pipe(autoprefixer(config.css.autoprefixer))
     .pipe(sourcemaps.write())
-    // .pipe(minifycss())
+    .pipe(cleanCSS())
     .pipe(gulp.dest(paths.dest))
     .pipe(browserSync.reload({stream:true}));
 });
