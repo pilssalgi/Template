@@ -17,12 +17,12 @@
       delay       : 0,
       ease        : "easeInOutQuint"
     };
+    var dom = $elem[0];
     $.extend(config,options);
     config.align = config.align.toUpperCase();
-
     var size    = { w:0, h:0 },
         offset  = { w:0, h:0, x:0, y:0 },
-        clip    = { w:0, h:0, x:0, y:0 };
+        clip    = { top:0, right:0, bottom:0, left:0 };
 
 
     function init(){
@@ -33,8 +33,8 @@
     }
 
     function sizeUpadate(){
-      size.w = $elem.innerWidth();
-      size.h = $elem.innerHeight();
+      size.w    = $elem.innerWidth();
+      size.h    = $elem.innerHeight();
       offset.w  = sizeUnitChange(config.width, size.w);
       offset.h  = sizeUnitChange(config.height, size.h);
       offset.x  = sizeUnitChange(config.x, size.w);
@@ -91,7 +91,8 @@
 
 
     function clipApply(rect){
-      $elem.css({"clip" : rect});
+      // $elem.css({"clip" : rect});
+      dom.style.clip = rect;
     }
 
     function changeToRect(p){
