@@ -1,96 +1,76 @@
 var Bind = require('../util/Bind');
-var FakeScroll = function($scrollTarget,scroll,speed,option){
-  var windowSize  = require('../WindowSize');
-  // var throttle    = require('throttle-debounce/throttle');
+var FakeScroll = function(target,wrap,speed,option){
+  var windowSize  = require('../util/WindowSize');
   this.name     = 'FakeScroll';
-  this.isUpdate = true;
   this.height   = 0;
   this.position = {x:0,y:0,oldX:0,oldY:0};
   this.speed    = typeof speed == 'undefined'?0.1:speed;
-  this.targetDom = $scrollTarget[0];
+  this.target   = target;
   var $fakeDom  = $('<figure></figure>');
   var screenSize = windowSize();
   var _this = this;
-  var config = {
-    isTop:true
-  }
-  var scroll = {y:0};
+  var config = {isTop:true};
+  var scroll = {y:0,power:0};
+  var ticking = false;
   if(option)$.extend(config,option);
   /* ************************************************************
     Setup  
   ************************************************************ */
-  var contents = [];
-  var ticking = false;
   function setup(){
-    $('.section').each(function(){
-      contents.push($(this));
-    });
-    
-    // $fakeDom.appendTo($('body'));
-    // $fakeDom.css({
-      // position:'relative',
-      // width:1,
-      // height:$scrollTarget.outerHeight()
-    // });
-    // $scrollTarget.css({position:'fixed'});
-
+    // $(wrap).css({height:target.style.clientHeight});
+    // }else{
+    // }
     $(window).on('scroll',onScroll);
-    $('body').css({height:$scrollTarget.outerHeight()});
-
-    // this.update   = Bind(this.update,this);
-    // this.update();
+    target.style.position = 'fixed';
+    update = Bind(update,this);
 
     $(window).on('resize',function(){
       screenSize = windowSize();
       _this.sizeUpdate();
     });
+    _this.sizeUpdate();
   }
 
   function onScroll(){
+    scroll.power += 100;
+    scroll.y = window.pageYOffset || document.documentElement.scrollTop;
     if(!ticking){
-      update();
+      requestAnimationFrame(update);
     }
     ticking = true;
   }
+
+  
   /* ************************************************************
     Rendering
   ************************************************************ */
   function update(){
-    requestAnimationFrame(function(){
-      scroll.y = window.pageYOffset || document.documentElement.scrollTop;
-      _this.position.y += (scroll.y-_this.position.y)*_this.speed;
-      _this.position.y = Number(_this.position.y.toFixed(2));
-      var distance = Math.abs(_this.position.y-scroll.y);
-      if(distance < .1){
-        // _this.position.y = Math.floor(scroll.y);
-        _this.positionUpdate();
-        ticking = false;
-      }else{
-        update();
-      }
-      
-      if(_this.position.y != _this.position.oldY){
-        _this.positionUpdate();
-      }
+    this.position.y += (scroll.y-this.position.y)*this.speed;
+    this.position.y = Number(this.position.y.toFixed(1));
+    // scroll.power *= 0.9;
+    var dis = (scroll.y-this.position.y);
+    if(dis < 1 && dis > -1){
+      // this.position.y = Math.floor(this.position.y);
+      this.positionUpdate();
+      // scroll.power = 0;
+      ticking = false;
+    }else{
+      requestAnimationFrame(update);
+    }
+    // if(this.position.y != this.position.oldY)this.positionUpdate();
 
-      _this.position.oldY = _this.position.y;
-    });
+    this.positionUpdate();
+    this.position.oldY = this.position.y;
   }
 
   this.sizeUpdate = function(){
-    this.height = $scrollTarget.outerHeight();
+    this.height = $(this.target).height();
     $('body').css({height:this.height});
-    // if(config.isTop)this.height -= screenSize.height;
-    // $fakeDom.css({height:this.height});
+    _this.positionUpdate();
   }
 
   this.positionUpdate = function(){
-    // $scrollTarget.css(this.translate3d(0,-this.position.y+'px',0));
-    this.targetDom.style.transform ="translate3d(0px,"+(-this.position.y)+"px,0)";//this.translate3d(0,-this.position.y+'px',0);
-    
-    // for(var i=0; i<contents.length; i++){
-    //   contents[i].css(this.translate3d(0,-this.position.y+'px',0));  
-    // }
+    this.target.style.transform ="translate3d(0px,"+(-this.position.y)+"px,0)";//this.translate3d(0,-this.position.y+'px',0);
   }
 
 

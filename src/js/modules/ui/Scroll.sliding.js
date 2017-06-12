@@ -556,13 +556,16 @@ ScrollBar.prototype.update = function(){
     case 'x' : 
       if(this.scroll.ratio == this.scroll.ratioOld)return;
       this.scBar.css(translate(this.scroll.left,0));
-      this.moveTarget.css(translate(-this.scroll.ratio*this.scroll.total,0));
+      // this.moveTarget.css(translate(-this.scroll.ratio*this.scroll.total,0));
+      // this.moveTarget[0].style.transform ="translate3d(0px,"+(-scrollY)+"px,0)";
     break;
 
     case 'y' : 
       if(this.scroll.ratio == this.scroll.ratioOld)return;
       this.scBar.css(translate(0,this.scroll.top));
-      this.moveTarget.css(translate(0,-this.scroll.ratio*this.scroll.total));
+      // this.moveTarget.css(translate(0,-this.scroll.ratio*this.scroll.total));
+      this.moveTarget[0].style.transform ="translate3d(0px,"+(-this.scroll.ratio*this.scroll.total).toFixed(2)+"px,0)";
+      this.scBar[0].style.transform ="translate3d(0px,"+(this.scroll.top)+"px,0)";
       // TweenLite.set(this.scBar,{y:this.scroll.top});
       // TweenLite.set(this.moveTarget,{y:-this.scroll.ratio*this.scroll.total.y});
     break;
@@ -577,6 +580,7 @@ ScrollBar.prototype.update = function(){
 
 
 function translate(x,y){
+  return 'translate3d('+x+'px,'+y+'px,0)';
   var css3 = "matrix(1,0,0,1,"+x+","+y+")";
   return{
       "-webkit-transform" : css3,
@@ -602,7 +606,7 @@ ScrollBar.prototype.onResize = function(e){
       this.scroll.range   = this.scBarIn.innerHeight()-this.scBar.innerHeight();
       break;
   }
-  
+
   this.onScrolling(0);
   this.update();
 }
