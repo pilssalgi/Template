@@ -1,20 +1,29 @@
 var $ = require('jQuery');
+var Loader = require('./modules/loader/Loader');
 (function () {
 
   $(document).ready(function(){
-
+    init();
+  	load();
   });
 
   function load(){
-  	var Load_Image        = require('./modules/loader/Load_Image');
-	  var LoadingAnimation  = require('./class/ui/LoadingAnimation');
-	  var imgLoader         = new Load_Image();
-	  // imgLoader.load($('body'),new LoadingAnimation(init));
-    
+  	var loader = new Loader();
+  	loader.loading = function(p){
+  	    console.log("p", p);
+  	}
+  	loader.loaded = function(){
+      start();
+  	}
+  	loader.load($('body'));
   }
 
   function init(){
     
+  }
+
+  function start(){ 
+    console.log("start");
   }
 
 
