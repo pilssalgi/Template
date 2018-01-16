@@ -5,12 +5,16 @@ var Loader = require('./modules/loader/Loader');
   $(document).ready(function(){
     init();
   	load();
+    let plus = (x, y) => {
+      return x + y;
+    };
   });
+
+
 
   function load(){
   	var loader = new Loader();
   	loader.loading = function(p){
-  	    console.log("p", p);
   	}
   	loader.loaded = function(){
       start();
@@ -23,7 +27,6 @@ var Loader = require('./modules/loader/Loader');
   }
 
   function start(){ 
-    console.log("start");
   }
 
 
