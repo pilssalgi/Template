@@ -4,7 +4,7 @@
 * Author : Heonwongeun
 * FaceBook : https://www.facebook.com/heo.wongeun
 */
-
+var $ = require('jQuery');
 (function(){
   var EasyMask = function($elem,options){
     var _this = this;
@@ -87,7 +87,7 @@
         // if(value.indexOf("px") > -1)num = Number(value.replace("px",""));
         if(value.indexOf("%") > -1){
           num = Number(value.replace("%",""));
-          if(num > 100)num = 100;
+          // if(num > 100)num = 100;
           num = originalsize*num/100;
         }else{
           num = Number(value.replace("px",""));
@@ -139,5 +139,5 @@
 
   EasyMask.prototype.constructor = EasyMask;
   module.exports = EasyMask; 
-}).call(jQuery)
+}).call()
 

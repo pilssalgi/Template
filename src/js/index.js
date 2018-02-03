@@ -1,11 +1,34 @@
+var $ = require('jQuery');
+var Loader = require('./modules/loader/Loader');
 (function () {
-  var Load_Image        = require('./modules/loader/Load_Image');
-  var LoadingAnimation  = require('./class/ui/LoadingAnimation');
-  var imgLoader         = new Load_Image();
-  imgLoader.load($('body'),new LoadingAnimation(init));
+
+  $(document).ready(function(){
+    init();
+  	load();
+    let plus = (x, y) => {
+      return x + y;
+    };
+  });
+
+
+
+  function load(){
+  	var loader = new Loader();
+  	loader.loading = function(p){
+  	}
+  	loader.loaded = function(){
+      start();
+  	}
+  	loader.load($('body'));
+  }
 
   function init(){
-    console.log(init);
+    
   }
+
+  function start(){ 
+  }
+
+
 
 }).call(this);

@@ -9,15 +9,15 @@ var SelfPosition = function(target){
   this.isStageIn    = false;
   this.stageSize    = { width:0, height:0 };
   this.offset       = {left:0,top:0,width:0,height:0};
-  this.rect         = {};
+  this.stageInOffset = {min:0,max:1};
 }
 
 
 SelfPosition.prototype._setup = function(){
-  this._resize = Bind(this._resize,this);
-  $(window).on('resize',this._resize);
+  // this._resize = Bind(this._resize,this);
+  // $(window).on('resize',this._resize);
   // $(window).on('resize', debounce(this._resize, 0));
-  this._resize();
+  // this._resize();
   return this;
 }
 SelfPosition.prototype._resize = function(){
@@ -28,26 +28,18 @@ SelfPosition.prototype._resize = function(){
 }
 
 SelfPosition.prototype._update = function(scrollY){
-  // var y = scrollY == 'undefined'?window.pageYOffset || document.documentElement.scrollTop:scrollY;
-  // var y = window.pageYOffset || document.documentElement;
-  // var top = $(this.target).offset().top,
-  //     h = $(this.target).height();
-  // // this.progress = 1-(this.rect.top-y+this.rect.height)/(this.stageSize.height+this.rect.height);
-  // this.progress = 1-(top-y+h)/(this.stageSize.height+h);
-  // var dir = this.progress-this.progressOld;
 
   var rect = this.target.getBoundingClientRect();
   this.progress   = 1-(rect.top+rect.height)/(window.innerHeight+rect.height);
   var dir = this.progress-this.progressOld;
   if(this.progress >= 0 && this.progress <= 1){
-    if(!this.isStageIn){
+    if(!this.isStageIn && this.progress > this.stageInOffset.min){
       this.in(dir);
+      this.isStageIn = true;
     }
-    this.isStageIn = true;
   }else{
     if(this.isStageIn){
       this.out(dir);
-      // this._resize();
     }
     this.isStageIn = false;
   }

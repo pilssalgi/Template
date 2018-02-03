@@ -1,4 +1,6 @@
-var Bind = require('../util/Bind');
+var $     = require('jQuery');
+var UA    = require('../info/UA')();
+var Bind  = require('../util/Bind');
 var debounce = require('lodash.debounce');
 var FakeScroll = function(target,speed,option){
   var windowSize  = require('../util/WindowSize');
@@ -18,22 +20,17 @@ var FakeScroll = function(target,speed,option){
     Setup  
   ************************************************************ */
   function setup(){
-    // $(wrap).css({height:target.style.clientHeight});
-    // }else{
-    // }
     $(window).on('scroll',onScroll);
     target.style.position = 'fixed';
     update = Bind(update,this);
-
-    // $(window).on('resize',function(){
-    //   screenSize = windowSize();
-    //   _this.sizeUpdate();
-    // });
-
     $(window).on('resize', debounce(function(){
       screenSize = windowSize();
       _this.sizeUpdate();
     }, 10));
+
+    $(window).on('SmoothScrollUpdate', function(){
+      _this.sizeUpdate();
+    });
 
     _this.sizeUpdate();
   }
@@ -54,17 +51,13 @@ var FakeScroll = function(target,speed,option){
   function update(){
     this.position.y += (scroll.y-this.position.y)*this.speed;
     this.position.y = Number(this.position.y.toFixed(1));
-    // scroll.power *= 0.9;
     var dis = (scroll.y-this.position.y);
     if(dis < 1 && dis > -1){
-      // this.position.y = Math.floor(this.position.y);
       this.positionUpdate();
-      // scroll.power = 0;
       ticking = false;
     }else{
       requestAnimationFrame(update);
     }
-    // if(this.position.y != this.position.oldY)this.positionUpdate();
 
     this.positionUpdate();
     this.position.oldY = this.position.y;
