@@ -1,6 +1,6 @@
 (function(){
 /* ************************************************************
-  title  : Scroll ver 0.1.4
+  title  : Scroll ver 0.1.6
   date   : 2014.05
   author : Heowongeun
   modifications :
@@ -17,6 +17,8 @@
 //scroll = new Scroll({speed:.1, friction:0.1, step:scrolling});
 var _bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 var UA = require('../info/UA')();
+require('jquery-mousewheel')($);
+
 var getPagePos = function(e){
   var pos, touch;
   pos = {x:0, y:0};
@@ -56,7 +58,6 @@ function Scroll(option){
     type        : "wheel",
     scrollType  : "y",
     screenFix   : false,
-    scrollLimit : 30,
     scrollBar   : null,
     step        : function(){},
     start       : function(){},
@@ -92,13 +93,14 @@ function Scroll(option){
   
   //wheelEvent
   this.onWheel = _bind(this.onWheel,this);
+  // this.config.target[0].addEventListener('mousewheel',$.throttle( 10, this.onWheel ),{passive:true});
   // $(this.config.target).bind("mousewheel", this.onWheel);
   $(this.config.target).bind("mousewheel", $.throttle( 10, this.onWheel ) );
   //touchEvent
   this.onTouchStart   = _bind(this.onTouchStart,this);
   this.onTouchMove    = _bind(this.onTouchMove,this);
   this.onTouchEnd     = _bind(this.onTouchEnd,this);
-  this.touchOld = {x:0,y:0};
+  this.touchOld       = {x:0,y:0};
 
   $(this).bind('ScrollBarEvents',this.eventListener);
 
@@ -188,6 +190,7 @@ Scroll.prototype.getTouchInfo = function(e){
 }
 
 Scroll.prototype.onWheel = function(event, delta, deltaX, deltaY){
+  if(this.config.freeze)return;
   var del = 0;
   if(uas.isLtIE9){
       del = delta;
@@ -280,6 +283,18 @@ Scroll.prototype.stats = function(){
   )
 }
 // this.Scroll = Scroll;
+
+/* ************************************************************
+  Function
+************************************************************ */
+Scroll.prototype.freeze = function(bool){
+  this.stopRender();
+  if(bool){
+    this.config.freeze = true;
+  }else{
+    this.config.freeze = false;
+  }
+}
 
 
 
@@ -388,8 +403,8 @@ ScrollBar.prototype.scrollTop = function(){
 
 ScrollBar.prototype.scrollMove = function(y,duration,onComplete){
 
-  this.eventDispatcher(this.EVENT_FREEZE_ON);
-  this.config.scrollClass.eventDispatcher(this.EVENT_FREEZE_ON);
+  var freezeOld = this.config.scrollClass.config.freeze;
+  this.config.scrollClass.freeze(true);
 
   var _this = this;
   TweenLite.to(this.scroll,duration,{current:y,ease:Power4.easeInOut
@@ -399,8 +414,7 @@ ScrollBar.prototype.scrollMove = function(y,duration,onComplete){
     }
     ,onComplete:function(){
       if(onComplete)onComplete();
-      _this.eventDispatcher(_this.EVENT_FREEZE_OFF);
-      _this.config.scrollClass.eventDispatcher(_this.config.scrollClass.EVENT_FREEZE_OFF);
+      _this.config.scrollClass.freeze(freezeOld);
     }
   });
 }
@@ -521,16 +535,13 @@ ScrollBar.prototype.onRender = function(){
       break;
   }
 
-
-  
-
   this.update();
   this.renderingID = requestAnimationFrame(this.onRender);
 }
 
 
 ScrollBar.prototype.onScrolling = function(delta){
-  this.stopRender();
+  // this.stopRender();
   switch(this.config.scrollType){
     case 'x' : this.scroll.current += delta; break;
     case 'y' : this.scroll.current += delta; break;
@@ -539,7 +550,7 @@ ScrollBar.prototype.onScrolling = function(delta){
   if(this.scroll.current < 0)this.scroll.current += -this.scroll.current*this.config.bounceFriction;
   if(this.scroll.current > this.scroll.total)this.scroll.current += (this.scroll.total-this.scroll.current)*this.config.bounceFriction;
   this.calculate();
-  this.update();
+  this.update(delta);
 }
 
 ScrollBar.prototype.calculate = function(delta){
@@ -551,7 +562,7 @@ ScrollBar.prototype.calculate = function(delta){
   }
 }
 
-ScrollBar.prototype.update = function(){
+ScrollBar.prototype.update = function(delta){
   switch(this.config.scrollType){
     case 'x' : 
       if(this.scroll.ratio == this.scroll.ratioOld)return;
@@ -562,10 +573,15 @@ ScrollBar.prototype.update = function(){
 
     case 'y' : 
       if(this.scroll.ratio == this.scroll.ratioOld)return;
-      this.scBar.css(translate(0,this.scroll.top));
+      // this.scBar.css(translate(0,this.scroll.top));
+      // console.log(this.scroll.ratio);
       // this.moveTarget.css(translate(0,-this.scroll.ratio*this.scroll.total));
-      this.moveTarget[0].style.transform ="translate3d(0px,"+(-this.scroll.ratio*this.scroll.total).toFixed(2)+"px,0)";
-      this.scBar[0].style.transform ="translate3d(0px,"+(this.scroll.top)+"px,0)";
+      var y = (-this.scroll.ratio*this.scroll.total);
+      if(delta < 0.01){
+        y = y.toFixed(0);
+      }
+      this.moveTarget[0].style.transform ="translate3d(0px,"+y+"px,0)";
+      // this.scBar[0].style.transform ="translate3d(0px,"+(this.scroll.top)+"px,0)";
       // TweenLite.set(this.scBar,{y:this.scroll.top});
       // TweenLite.set(this.moveTarget,{y:-this.scroll.ratio*this.scroll.total.y});
     break;
@@ -574,7 +590,7 @@ ScrollBar.prototype.update = function(){
   this.scroll.ratioOld = this.scroll.ratio;
 
   if(this.config.scrollClass){
-    this.config.scrollClass.config.step();
+    this.config.scrollClass.config.step(this.config.scrollClass.offset);
   }
 }
 

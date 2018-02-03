@@ -1,6 +1,6 @@
 /**
 * 2016.05
-* easemask ver 0.1.0
+* easemask ver 0.1.1
 * Author : Heonwongeun
 * FaceBook : https://www.facebook.com/heo.wongeun
 */
@@ -15,7 +15,8 @@
       width       : 0,
       height      : 0,
       delay       : 0,
-      ease        : "easeInOutQuint"
+      ease        : "easeInOutQuint",
+      name        : ''
     };
     var dom = $elem[0];
     $.extend(config,options);
@@ -27,9 +28,11 @@
 
     function init(){
       this.mask();
-      $(window).resize(function(){
-        _this.mask();
-      });
+      $(window).on('resize',resize);
+    }
+
+    function resize(){
+      _this.mask();
     }
 
     function sizeUpadate(){
@@ -39,6 +42,10 @@
       offset.h  = sizeUnitChange(config.height, size.h);
       offset.x  = sizeUnitChange(config.x, size.w);
       offset.y  = sizeUnitChange(config.y, size.h);
+    }
+
+    this.remove = function(){
+      $(window).off('resize',resize);
     }
 
     this.update = function(option){

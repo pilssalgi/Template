@@ -1,5 +1,6 @@
 var Bind = require('../util/Bind');
-var FakeScroll = function(target,wrap,speed,option){
+var debounce = require('lodash.debounce');
+var FakeScroll = function(target,speed,option){
   var windowSize  = require('../util/WindowSize');
   this.name     = 'FakeScroll';
   this.height   = 0;
@@ -24,10 +25,16 @@ var FakeScroll = function(target,wrap,speed,option){
     target.style.position = 'fixed';
     update = Bind(update,this);
 
-    $(window).on('resize',function(){
+    // $(window).on('resize',function(){
+    //   screenSize = windowSize();
+    //   _this.sizeUpdate();
+    // });
+
+    $(window).on('resize', debounce(function(){
       screenSize = windowSize();
       _this.sizeUpdate();
-    });
+    }, 10));
+
     _this.sizeUpdate();
   }
 
@@ -71,20 +78,6 @@ var FakeScroll = function(target,wrap,speed,option){
 
   this.positionUpdate = function(){
     this.target.style.transform ="translate3d(0px,"+(-this.position.y)+"px,0)";//this.translate3d(0,-this.position.y+'px',0);
-  }
-
-
-  /* ************************************************************
-      
-  ************************************************************ */
-  
-  this.translate3d = function(x,y,z){
-    var css3 = "translate3d("+x+","+y+","+z+")";
-    return css3;
-    // return {
-    //   "-webkit-transform" : css3,
-    //   "transform"         : css3
-    // };
   }
 
   setup.call(this);
