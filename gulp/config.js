@@ -22,7 +22,8 @@ module.exports = {
       '!src/js/modules/**',
       '!src/**/*.coffee',
       '!src/**/*.jade',
-      '!src/**/*.{sass,scss}'
+      '!src/**/*.{sass,scss}',
+      '!src/**/*.pug'
     ],
     watch : ['src/**/images/**','src/images/**'],
     dest : 'public/'
@@ -43,6 +44,12 @@ module.exports = {
   html : {
     src   : ['src/**/*.html', '!src/**/include/**'],
     watch : ['src/**/*.html', 'src/**/include/*.html'],
+    dest  : ''
+  },
+
+  pug : {
+    src   : ['src/**/*.pug', '!src/**/common/**'],
+    watch : ['src/**/*.pug', 'src/common/*.pug'],
     dest  : ''
   },
 

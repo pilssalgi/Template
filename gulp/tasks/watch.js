@@ -8,6 +8,6 @@ gulp.task('watch',['browserSync'], function() {
   gulp.watch(config.copy.watch,['copy']);
   gulp.watch(config.js.watch,['js']);
   gulp.watch(config.css.watch,['scss']);
-  gulp.watch(config.html.watch,['pug']);
-  gulp.watch(config.html.watch,['minifyhtml']);
+  gulp.watch(config.pug.watch,['pug']);
+  // gulp.watch(config.html.watch,['minifyhtml']);
 })

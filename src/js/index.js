@@ -5,9 +5,6 @@ var Loader = require('./modules/loader/Loader');
   $(document).ready(function(){
     init();
   	load();
-    let plus = (x, y) => {
-      return x + y;
-    };
   });
 
 
