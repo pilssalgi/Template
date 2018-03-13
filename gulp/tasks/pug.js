@@ -16,7 +16,7 @@ gulp.task("pug", function() {
 	.pipe(data( file => {
       return JSON.parse(fs.readFileSync(`./src/pages.json`));
   }))
-	.pipe(pug())
+	.pipe(pug({basedir: config.pug.basedir}))
 	.pipe(gulp.dest(paths.dest))
 	.pipe(browserSync.reload({stream:true}));
 	// .pipe(gulp.dest("dest/")) //出力先

@@ -1,0 +1,12 @@
+$column-width:120px;
+$column-width-ratio:7.1428vw;
+$column-width-ratio-half:3.7vw;
+
+@function grid-size($grid) {
+  @return calc(#{$column-width-ratio} * #{$grid});
+}
+
+@function vw-size($px,$windowSize) {
+	$vw: ($windowSize * 0.01) * 1px;
+	@return ($px / $vw) * 1vw;
+}

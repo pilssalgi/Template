@@ -1,7 +1,9 @@
-- var pageId = "index"
-doctype html
-html(lang="ja")
-	include common/_head
-	body
-		include common/_footer
-		include common/_scripts
+extends /_templete/layout/_base
+
+block append vars
+	- pageId = 'index';
+	- root = './';
+
+block mainContent
+	a(href="./_/index.html" style="text-align:center; width:100%; display:block; margin-top:2vw;") INDEX
+

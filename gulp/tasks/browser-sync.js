@@ -9,6 +9,6 @@ var option = {
   browser : "google chrome"
 }
 
-gulp.task('browserSync',['scss','js','pug'],function(){
+gulp.task('browserSync',['scss','js','svgstore','pug'],function(){
   return browserSync.init(option);
 });

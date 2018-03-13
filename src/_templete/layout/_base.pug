@@ -1,0 +1,18 @@
+block vars
+    -
+        var pageId = null
+        var root = null
+
+doctype html
+
+include ./_head
+include ../module/_svg-use
+
+body(class=bodyClass)
+    include /assets/images/symbols.svg
+    main.pageContent
+        section.pageContentInner
+            block mainContent
+
+    include ./_scripts
+    include ./_footer
