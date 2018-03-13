@@ -1,0 +1,39 @@
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+$min-vw: 320;
+$max-vw: 1680;
+@mixin fluid-type ($rules...) {
+    @each $rule in $rules {
+        #{nth($rule, 1)}: nth($rule, 3);
+    }
+
+    @media (max-width: #{$max-vw}px) {
+        @each $rule in $rules {
+            $prop: nth($rule, 1);
+            $min-val: nth($rule, 2);
+            $max-val: nth($rule, 3);
+            #{$prop}: calc(#{$min-val} + #{strip-unit($max-val - $min-val)} * ((100vw - #{$min-vw}px) / #{$max-vw - $min-vw}));
+        }
+    }
+    
+    @media(max-width: #{$min-vw}px) {
+        @each $rule in $rules {
+            #{nth($rule, 1)}: nth($rule, 2);
+        }
+    }
+}
+
+// ex) @include fluid-text(24px,29px,64px,72px);
+@mixin fluid-text ($min-font-size,$min-line-height,$max-font-size,$max-line-height) {
+    @include fluid-type(
+        font-size $min-font-size $max-font-size,
+        line-height $min-line-height $max-line-height
+    );
+}
+

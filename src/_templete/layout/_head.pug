@@ -1,0 +1,28 @@
+doctype html
+html(lang="ja")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge")
+		title #{pages[pageId].title}
+		meta(http-equiv="Content-Type" content="text/html; charset=utf-8")
+		meta(name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, width=device-width")
+		meta(http-equiv="X-UA-Compatible" content="IE=edge")
+		meta(name="description" content=pages[pageId].description)
+		meta(name="keywords", content=pages[pageId].keyword)
+		link(rel="shortcut icon" href="favicon.ico")
+
+		meta(property="og:title", content=pages[pageId].title)
+		meta(property="og:site_name", content=pages[pageId].title)
+		meta(property="og:description", content=pages[pageId].description)
+		meta(property="og:type", content=pages[pageId].og_type)
+		meta(property="og:image", content=pages[pageId].og_image)
+		meta(property="og:url",  content=pages[pageId].og_url)
+
+		meta(name="twitter:card" content="summary_large_image")
+		meta(name="twitter:title", content=pages[pageId].title)
+		meta(name="twitter:description", content=pages[pageId].description)
+		meta(name="twitter:image" content="")
+
+		link(rel="apple-touch-icon", href="/apple-touch-icon.png")
+		link(rel="stylesheet" href="/assets/css/main.css")
+		link(rel="canonical", href=pages[pageId].canonicalURL)

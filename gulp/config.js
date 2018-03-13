@@ -8,7 +8,7 @@ module.exports = {
     src   : 'js',
     dest  : 'js',
     watch : 'src/**/*.js',
-    files : ['src/js/index.js']
+    files : ['src/assets/js/index.js']
   },
 
   copy: {
@@ -17,13 +17,18 @@ module.exports = {
       '!src/**/base',
       '!src/**/include',
       '!src/**/include/**',
-      '!src/css/base',
-      '!src/js/modules/',
-      '!src/js/modules/**',
+      '!src/**/css/**',
+      '!src/**/css/**/*',
+      '!src/**/js/**/*',
+      '!src/**/js/**/*',
+      '!src/_templete',
+      '!src/_templete/**',
       '!src/**/*.coffee',
       '!src/**/*.jade',
       '!src/**/*.{sass,scss}',
-      '!src/**/*.pug'
+      '!src/**/*.pug',
+      '!src/common',
+      '!src/common/**/*',
     ],
     watch : ['src/**/images/**','src/images/**'],
     dest : 'public/'
@@ -48,15 +53,38 @@ module.exports = {
   },
 
   pug : {
+    basedir: 'src',
     src   : ['src/**/*.pug', '!src/**/common/**'],
     watch : ['src/**/*.pug', 'src/common/*.pug'],
     dest  : ''
   },
 
   images : {
-    src     : 'images/**',
-    dest    : 'images',
-    watch   : 'src/images/**',
+    src     : 'src/**/*.{gif,jpeg,jpg,png,svg,webp}',
+    watch   : 'src/**/*.{gif,jpeg,jpg,png,svg,webp}',
+    dest    : 'assets/images',
     extensions: ['jpg', 'png', 'svg', 'gif']
+  },
+
+  imagemin: {
+    pngquant: {
+        quality: '60-80'
+    },
+    svgo: [
+        {removeViewBox: false},
+        {removeUselessStrokeAndFill: false},
+        {cleanupIDs: false},
+        {removeHiddenElems: false}
+    ],
+    src: 'src/**/*.{gif,jpeg,jpg,png,svg,webp}',
+    watch: 'src/**/*.{gif,jpeg,jpg,png,svg,webp}',
+    dest: 'dist'
+  },
+
+  svgstore: {
+    src: 'src/assets/images/symbol/*.svg',
+    watch: 'src/assets/images/symbol/*.svg',
+    dest: 'src/assets/images',
+    destFileName: 'symbols'
   }
 }

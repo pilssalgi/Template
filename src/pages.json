@@ -1,9 +1,14 @@
 {
     "pages": {
         "index": {
-            "id": "index",
-            "title": "title",
-            "description": "description"
+            "id" 			: "index",
+            "title" 		: "index title",
+            "keyword" 		: "",
+            "description"	: "",
+            "og_type" 	 	: "website",
+            "og_image"   	: "",
+            "og_url"  	 	: "",
+            "canonicalURL"  : ""
         }
     }
 }
