@@ -1,6 +1,6 @@
 var $ = require('jQuery');
 module.exports = {
-	eventName:'BranuEvent',
+	eventName:'CustomerEvent',
 	dispatch : function(data){
 		$('body').trigger(this.eventName,data);
 	},
