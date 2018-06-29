@@ -1,8 +1,8 @@
 extends /_templete/layout/_base
 
 block append vars
-	- pageId = 'index';
-	- root = './';
+	- page.title = "index"
+	- page.pathName = "/"
 
 block mainContent
 	a(href="./_/index.html" style="text-align:center; width:100%; display:block; margin-top:2vw;") INDEX

@@ -1,18 +1,33 @@
 block vars
-    -
-        var pageId = null
-        var root = null
+	-	
+		var page = {
+			lang: "",
+			canonical: "",
+			description: "",
+			pathName: "",
+			pathRoot: "",
+			title: "",
+			keyword:"",
+			og: {
+				type:"website",
+				url:"",
+				img:""
+			},
+			twitter: {}
+		}
 
-doctype html
+		var wp = false
+		var bodyClass = ""
+		var root = null
 
 include ./_head
 include ../module/_svg-use
 
 body(class=bodyClass)
-    include /assets/images/symbols.svg
-    main.pageContent
-        section.pageContentInner
-            block mainContent
+	include /assets/images/symbols.svg
+	main.pageContent
+		section.pageContentInner
+			block mainContent
 
-    include ./_scripts
-    include ./_footer
+	include ./_scripts
+	include ./_footer
