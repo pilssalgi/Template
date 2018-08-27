@@ -1,12 +1,12 @@
 module.exports = {
   base : {
     src   : 'src',
-    dest  : 'public'
+    dest  : 'public/'
   },
 
   js : {
     src   : 'js',
-    dest  : 'js',
+    dest  : './assets/js',
     watch : 'src/**/*.js',
     files : ['src/assets/js/index.js']
   },
@@ -31,7 +31,7 @@ module.exports = {
       '!src/common/**/*',
     ],
     watch : ['src/**/images/**','src/images/**'],
-    dest : 'public/'
+    dest : './'
   },
 
   css : {

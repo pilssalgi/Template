@@ -2,7 +2,7 @@ $column-width:120px;
 $column-width-ratio:7.1428vw;
 $column-width-ratio-half:3.7vw;
 
-@function grid-size($grid) {
+@function grid($grid) {
   @return calc(#{$column-width-ratio} * #{$grid});
 }
 

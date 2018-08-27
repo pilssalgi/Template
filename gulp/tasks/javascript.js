@@ -9,17 +9,19 @@ let browserSync   = require('browser-sync');
 let handleErrors  = require('../lib/handleErrors');
 let babelify      = require('babelify');
 let dest          = path.join(config.base.dest, config.js.dest);
+let stripDebug    = require( 'gulp-strip-debug' );
 
 gulp.task('js',function(){
   for(var i=0,n = config.js.files.length; i<n; i++){
     var url = config.js.files[i];
     var arr   = url.split('/');
     var name  = arr.pop();
-    var dest  = arr.join('/')+'/'
-    dest = dest.replace('src','public');
+    arr.shift();
+    var dest  = path.join(config.base.dest,arr.join('/'));
+
     if(i<n-1){
       browserify(url,{ debug: true })
-        .transform(babelify, {presets: ['es2015']})
+        .transform(babelify, {presets: ['env']})
         .bundle()
         .pipe(source(name))
         .pipe(buffer())
@@ -28,7 +30,7 @@ gulp.task('js',function(){
         .pipe(gulp.dest(dest))
     }else{
       browserify(url,{ debug: true })
-      .transform(babelify, {presets: ['es2015']})
+      .transform(babelify, {presets: ['env']})
       .bundle()
       .pipe(source(name))
       .pipe(buffer())
@@ -36,6 +38,37 @@ gulp.task('js',function(){
       .on('error', handleErrors)
       .pipe(gulp.dest(dest))
       .pipe(browserSync.stream())
+    }
+  }
+});
+
+gulp.task('js:release',function(){
+  for(var i=0,n = config.js.files.length; i<n; i++){
+    var url = config.js.files[i];
+    var arr   = url.split('/');
+    var name  = arr.pop();
+    arr.shift();
+    var dest  = path.join(config.base.dest,arr.join('/'));
+    if(i<n-1){
+      browserify(url,{ debug: true })
+        .transform(babelify, {presets: ['env']})
+        .bundle()
+        .pipe(source(name))
+        .pipe(buffer())
+        .pipe(stripDebug())
+        .pipe(uglify())
+        .on('error', handleErrors)
+        .pipe(gulp.dest(dest))
+    }else{
+      browserify(url,{ debug: true })
+        .transform(babelify, {presets: ['env']})
+        .bundle()
+        .pipe(source(name))
+        .pipe(buffer())
+        .pipe(stripDebug())
+        .pipe(uglify())
+        .on('error', handleErrors)
+        .pipe(gulp.dest(dest))
     }
   }
 });

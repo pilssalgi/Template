@@ -1,0 +1,87 @@
+@mixin animUnderline($color,$height){
+  $transition:cubic-bezier(.37,.07,.14,1);
+  $transitionDelay:0.4s;
+  $transitionDuration:0.4s;
+
+  .animUnderline {
+    position:relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-sizing:border-box;
+    &:before{
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: $height;
+      width: 100%;
+      background-color: $color;
+      transition: transform $transitionDuration $transition3;
+      transition-delay:0s;
+      transition-duration: 0s;
+      pointer-events: none;
+      transform:translate(-110%,0);
+      z-index: -1;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: $height;
+      width: 100%;
+      background-color: $color;
+      transition: transform $transitionDuration $transition3;
+      transition-delay: 0s;
+      pointer-events: none;
+      transform:translate(110%,0);
+      z-index: -1;
+    }
+  }
+
+  &:hover {
+    .animUnderline {
+      &:before{
+        transition: transform $transitionDuration $transition3;
+        transform:translate(0%,0);
+      }
+
+      &:after {
+        width: 100%;
+        transform:translate(0%,0);
+        transition-duration:0s;
+        transition-delay:$transitionDuration;
+      }  
+    }
+  }
+}
+
+@mixin animUnderlineHover(){
+  $transition:cubic-bezier(.37,.07,.14,1);
+  $transitionDelay:0.4s;
+  $transitionDuration:0.4s;
+  .animUnderline {
+    &:before{
+      transition: transform $transitionDuration $transition3;
+      transform:translate(0%,0);
+    }
+
+    &:after {
+      width: 100%;
+      transform:translate(0%,0);
+      transition-duration:0s;
+      transition-delay:$transitionDuration;
+    }  
+  }
+}
+
+
+@mixin animUnderlineActive($color,$height){
+  pointer-events:none;
+  span {
+    &:before{
+      transform:translate(0%,0);
+    }
+  }
+}
