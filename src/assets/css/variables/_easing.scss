@@ -1,9 +1,22 @@
-$transition1 : cubic-bezier(.42,.0,.32,1);
-$transition2 : cubic-bezier(.39,.02,.21,1);
-$transition3 : cubic-bezier(.43,.05,.17,1);//cubic-bezier(.48,.06,.14,1);
-$transition-zoom: cubic-bezier(.64,.01,.32,1);
+$transition0 : cubic-bezier(.26,.06,0,1);
+$transition1 : cubic-bezier(.18,.06,.23,1);
+$transition2 : cubic-bezier(.36,.04,.23,1);
+$transition3 : cubic-bezier(.43,.05,.17,1);
+$transition3_1 : cubic-bezier(.45,0,.24,1);
+$transition4 : cubic-bezier(.47,.16,.24,1);
+$transition4_1 : cubic-bezier(.49,.09,.24,1);
+$transition5 : cubic-bezier(.55,.05,.22,.99);
+$transition6 : cubic-bezier(.55,.05,.06,1);
+$transition7 : cubic-bezier(.69,.01,.2,.99);
+$transition8 : cubic-bezier(.72,.11,.24,1);
+
+
+$transition-zoom: cubic-bezier(.67,.06,.08,.99);
 $transition-textblock : cubic-bezier(.39,.07,.32,1);
 $transition-color: cubic-bezier(.23,.18,.26,1);
+
+$transition-form:cubic-bezier(.54,.07,.21,1);
+
 
 
 .transitionStop {
