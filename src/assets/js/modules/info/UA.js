@@ -33,6 +33,7 @@
       isTablet : false,
       isSmartPhone : false,
       browser : r,
+      androidVersion:null,
       isMac : /mac/i.test(nv['platform']),
       isWin : /win/i.test(nv['platform'])
     };
@@ -70,13 +71,13 @@
     if (t.isIPad = /ipad/.test(r)) {
       e = window.devicePixelRatio === 2
     }
-    t.isIOS = t.isIPhone || t.isIPad;
 
+    t.isIOS = t.isIPhone || t.isIPad;
     t.isAndroid = /android/.test(r);
 
     if(t.isAndroid){
-      t.androidVersion = u.match(/Android [\d+\.]{3,5}/)[0].replace('Android ','');
-      // t.androidVersion = Number(t.androidVersion.substr(0,3));
+      var match = r.match(/android\s([0-9\.]*)/);
+      t.androidVersion = match[1];
     }
     t.isAndroidMobile = /android(.+)?mobile/.test(r);
     t.isPC = !t.isIOS && !t.isAndroid;

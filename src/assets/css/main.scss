@@ -1,1 +1,31 @@
 @import 'common';
+
+.maintitle {
+	font-size:40px;
+	text-transform: uppercase;
+	margin-left: 100px;
+
+	display: inline-block;
+	overflow:hidden;
+
+	transform:translate3d(0,30px,0);
+	border:solid 1px;
+
+	span {
+		display: inline-block;
+		transform:translate3d(0,100%,0);
+		transition:transform 0.6s $transition3;
+	}
+
+	&:hover {
+		.text1 {
+			transform:translate3d(0,0%,0);
+		}
+
+		.text2 {
+			transform:translate3d(0,0%,0);
+			transition-delay:0.08s;
+		}
+	}
+
+}
