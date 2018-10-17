@@ -77,7 +77,7 @@
 
     t.isAndroid = /android/.test(r);
     if(t.isAndroid){
-      t.androidVersion = Number(/(Android )\d?.?\d/.exec(u)[0].replace('Android ',''));
+      t.androidVersion = Number(/Android \d+(.\d)?/.exec(u)[0].replace('Android ',''));
     }
 
     t.isAndroidMobile = /android(.+)?mobile/.test(r);
