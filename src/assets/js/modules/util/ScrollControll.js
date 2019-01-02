@@ -1,38 +1,48 @@
-var ScrollControll = function(){
-   /* ************************************************************
-      Scroll Event On / Off
-  ************************************************************ */
-  var keys = {37: 1, 38: 1, 39: 1, 40: 1};
-  function preventDefault(e) {
+'use strict';
+const checkPassive = require('../event/CheckPassive');
+class Singleton {
+  constructor(){
+    if(!Singleton.instance){
+      Singleton.instance = this;
+    }
+    this.keys = {37: 1, 38: 1, 39: 1, 40: 1};
+    this.eventOpt = checkPassive?{passive:false}:false;
+  }
+
+  preventDefault(e) {
     e = e || window.event;
     if (e.preventDefault)
         e.preventDefault();
-    e.returnValue = false;  
+    e.returnValue = false;  // ie
   }
 
-  function preventDefaultForScrollKeys(e) {
+  preventDefaultForScrollKeys(e) {
     if (keys[e.keyCode]) {
-        preventDefault(e);
-        return false;
+      this.preventDefault(e);
+      return false;
     }
   }
-  this.DisableScroll = function(){
+
+  disable(){
     if (window.addEventListener) // older FF
-    window.addEventListener('DOMMouseScroll', preventDefault, false);
-    window.onwheel = preventDefault; // modern standard
-    window.onmousewheel = document.onmousewheel = preventDefault; // older browsers, IE
-    window.ontouchmove  = preventDefault; // mobile
-    document.onkeydown  = preventDefaultForScrollKeys;
+    window.addEventListener('DOMMouseScroll', this.preventDefault, false);
+    window.onwheel = this.preventDefault; // modern standard
+    window.onmousewheel = document.onmousewheel = this.preventDefault; // older browsers, IE
+    // window.ontouchmove  = preventDefault; // mobile
+    document.addEventListener('touchmove', this.preventDefault, this.eventOpt);
+    document.onkeydown  = this.preventDefaultForScrollKeys;
   }
 
-  this.EnableScroll = function(){
-    if (window.removeEventListener)
-      window.removeEventListener('DOMMouseScroll', preventDefault, false);
+  enable(){
+    if (window.removeEventListener)window.removeEventListener('DOMMouseScroll', this.preventDefault, false);
     window.onmousewheel = document.onmousewheel = null; 
     window.onwheel = null; 
-    window.ontouchmove = null;  
-    document.onkeydown = null;  
+    // window.ontouchmove = null;  
+    document.onkeydown = null; 
+    document.removeEventListener('touchmove', this.preventDefault, this.eventOpt);
   }
 }
-ScrollControll.prototype.constructor = ScrollControll;
-module.exports = new ScrollControll();
+
+const instance = new Singleton();
+// Object.freeze(instance);
+export default instance;

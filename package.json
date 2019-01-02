@@ -14,7 +14,9 @@
   "private": true,
   "dependencies": {
     "jquery": "^3.2.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "three": "^0.94.0",
+    "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
     "autoprefixer": "^5.2.0",
@@ -52,7 +54,9 @@
     "gulp-util": "^3.0.7",
     "imagesloaded": "^4.1.1",
     "minimatch": "^3.0.2",
-    "require-dir": "^0.3.0",
+    "require-dir": "^0.3.2",
+    "dat.gui": "^0.7.2",
+    "stats.js": "^0.17.0",
     "run-sequence": "^1.1.4",
     "through": "^2.3.8",
     "vinyl-buffer": "^1.0.0",
