@@ -4,7 +4,7 @@ var path   = require('path');
 
 
 gulp.task('watch',['browserSync'], function() {
-  // gulp.watch(config.images.watch,['imagemin']);
+  gulp.watch(config.imagemin.watch,['imagemin-watch']);
   gulp.watch(config.copy.watch,['copy']);
   gulp.watch(config.css.watch,['scss']);
   gulp.watch(config.svgstore.watch, ['svgstore']);

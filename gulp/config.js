@@ -29,6 +29,7 @@ module.exports = {
       '!src/**/*.pug',
       '!src/common',
       '!src/common/**/*',
+      '!src/**/*.{gif,jpeg,jpg,png,svg,webp}'
     ],
     watch : ['src/**/images/**','src/images/**'],
     dest : './'
@@ -59,13 +60,6 @@ module.exports = {
     dest  : ''
   },
 
-  images : {
-    src     : 'src/**/*.{gif,jpeg,jpg,png,svg,webp}',
-    watch   : 'src/**/*.{gif,jpeg,jpg,png,svg,webp}',
-    dest    : 'assets/images',
-    extensions: ['jpg', 'png', 'svg', 'gif']
-  },
-
   imagemin: {
     pngquant: {
         quality: '60-80'
@@ -78,7 +72,7 @@ module.exports = {
     ],
     src: 'src/**/*.{gif,jpeg,jpg,png,svg,webp}',
     watch: 'src/**/*.{gif,jpeg,jpg,png,svg,webp}',
-    dest: 'dist'
+    dest: 'public/'
   },
 
   svgstore: {
