@@ -27,7 +27,7 @@
     "babelify": "^8.0.0",
     "browser-sync": "^2.9.11",
     "browserify": "^11.2.0",
-    "dat.gui": "^0.7.2",
+    "dat.gui": "^0.7.5",
     "del": "^2.2.1",
     "detect-passive-events": "^1.0.4",
     "es6-promise": "^3.0.2",

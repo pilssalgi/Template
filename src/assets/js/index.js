@@ -1,16 +1,22 @@
-var $ = require('jQuery');
-var UA = require('./modules/info/UA')();
+const UA = require('./modules/info/UA')();
+import ImageLoader from './modules/loader/ImageLoader';
+import LoadManager from './modules/loader/LoadManager';
 (function () {
-  $(document).ready(function(){
-    init();
+	let imageLoader = new ImageLoader();
+	let loadManager = new LoadManager();
+
+  document.addEventListener("DOMContentLoaded", function(event) {
+  	loadManager.load([imageLoader.load(document.body)]);
+
+  	loadManager.onLoading = function(p){
+  		console.log("p", p);
+  	}
+  	loadManager.onLoaded = function(){
+  		console.log('loaded');
+  	}
   });
 
-  function init(){
-    
-  }
-
-  function start(){
-  	
+  function setup(){
   }
 
 }).call(this);

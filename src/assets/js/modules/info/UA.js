@@ -1,5 +1,6 @@
 (function() {
   var UA = function(){
+    if(window.UA)return window.UA;
     var e, t, n, r, u, nv;
     u   = navigator.userAgent;
     r   = navigator.userAgent.toLowerCase();
@@ -115,6 +116,7 @@
     t.isOpera = /opera/.test(r);
     t.isMozilla = r.indexOf("compatible") < 0 && /mozilla/.test(r);
     t.isSafari = !t.isChrome && t.isWebkit;
+    window.UA = t;
     return t
   }
 
