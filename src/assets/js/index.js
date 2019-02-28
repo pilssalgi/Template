@@ -6,7 +6,7 @@ import LoadManager from './modules/loader/LoadManager';
 	let loadManager = new LoadManager();
 
   document.addEventListener("DOMContentLoaded", function(event) {
-  	loadManager.load([imageLoader.load(document.body)]);
+  	loadManager.load([imageLoader.load(document.body),{progress:1}]);// load( [ load tasks ]) 
 
   	loadManager.onLoading = function(p){
   		console.log("p", p);

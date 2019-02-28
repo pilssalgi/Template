@@ -21,10 +21,6 @@ export default class ClassName {
 			loadingStatus.progress = 1;
 		}
 		
-		return {
-			getLoadProgress:()=>{
-				return loadingStatus.progress;
-			}	
-		};
+		return loadingStatus;
 	}
 }

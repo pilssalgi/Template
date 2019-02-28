@@ -22,7 +22,7 @@ export default class ClassName {
 	loading(){
 		let sumProgress = 0, totalLoaded = 0;
 		for(var i=0; i<this.loadTasks.length; i++){
-			sumProgress += this.loadTasks[i].getLoadProgress();
+			sumProgress += this.loadTasks[i].progress;
 		}
 
 		totalLoaded = sumProgress / this.loadTotal;
