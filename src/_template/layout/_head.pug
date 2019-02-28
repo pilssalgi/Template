@@ -12,9 +12,9 @@ head
 	meta(property="og:title", content=page.title)
 	meta(property="og:site_name", content=page.title)
 	meta(property="og:description", content=page.description)
-	meta(property="og:type", content=page.og_type)
-	meta(property="og:image", content=page.og_image)
-	meta(property="og:url",  content=page.og_url)
+	meta(property="og:type", content=page.og.type)
+	meta(property="og:image", content=page.og.image)
+	meta(property="og:url",  content=page.og.url)
 
 	meta(name="twitter:card" content="summary_large_image")
 	meta(name="twitter:title", content=page.title)
@@ -23,5 +23,5 @@ head
 
 	link(rel="shortcut icon" href="favicon.ico")
 	link(rel="apple-touch-icon", href="/apple-touch-icon.png")
-	link(rel="canonical", href=page.canonicalURL)
+	link(rel="canonical", href=page.canonical)
 	link(rel="stylesheet" href="/assets/css/main.css")
