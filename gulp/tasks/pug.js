@@ -13,9 +13,9 @@ gulp.task("pug", function() {
 	gulp.src(
 		 ["src/**/*.pug",'!' + "src/**/_*.pug"] //参照するディレクトリ、出力を除外するファイル
 	)
-	.pipe(data( file => {
-      return JSON.parse(fs.readFileSync(`./src/pages.json`));
-  }))
+	// .pipe(data( file => {
+ //      return JSON.parse(fs.readFileSync(`./src/pages.json`));
+ //  }))
 	.pipe(pug({basedir: config.pug.basedir}))
 	.pipe(gulp.dest(paths.dest))
 	.pipe(browserSync.reload({stream:true}));
