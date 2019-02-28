@@ -1,12 +1,13 @@
 /**
 * 2016.05
-* easemask ver 0.1.1
+* easemask ver 0.1.2
 * Author : Heonwongeun
 * FaceBook : https://www.facebook.com/heo.wongeun
+* 
 */
-var $ = require('jQuery');
+const assignIn = require('lodash/assignIn');
 (function(){
-  var EasyMask = function($elem,options){
+  var EasyMask = function(elem,options){
     var _this = this;
     var config = {
       align       : "L",
@@ -18,8 +19,8 @@ var $ = require('jQuery');
       ease        : "easeInOutQuint",
       name        : ''
     };
-    var dom = $elem[0];
-    $.extend(config,options);
+
+    assignIn(config,options);
     config.align = config.align.toUpperCase();
     var size    = { w:0, h:0 },
         offset  = { w:0, h:0, x:0, y:0 },
@@ -28,7 +29,7 @@ var $ = require('jQuery');
 
     function init(){
       this.mask();
-      $(window).on('resize',resize);
+      this.addEvent();
     }
 
     function resize(){
@@ -36,16 +37,20 @@ var $ = require('jQuery');
     }
 
     function sizeUpadate(){
-      size.w    = $elem.innerWidth();
-      size.h    = $elem.innerHeight();
+      size.w    = elem.offsetWidth;
+      size.h    = elem.offsetHeight;
       offset.w  = sizeUnitChange(config.width, size.w);
       offset.h  = sizeUnitChange(config.height, size.h);
       offset.x  = sizeUnitChange(config.x, size.w);
       offset.y  = sizeUnitChange(config.y, size.h);
     }
 
+    this.addEvent = function(){
+      window.addEventListener('resize',resize);
+    }
+
     this.remove = function(){
-      $(window).off('resize',resize);
+      window.removeEventListener('resize',resize);
     }
 
     this.update = function(option){
@@ -53,28 +58,15 @@ var $ = require('jQuery');
     }
 
     this.mask = function(option){
-      if(option)$.extend(config,option);
+      if(option)assignIn(config,option);
       sizeUpadate();
       clip.top    = offset.y;
       clip.right  = offset.w+offset.x;
       clip.bottom = offset.h+offset.y;
       clip.left   = offset.x;
 
-      // switch(config.align){
-      //   case "L"    : o.x = 0; o.w = offset.w; o.y = (size.h - offset.h)*0.5, o.h = offset.h; break;
-      //   case "R"    : o.x = size.w - offset.w;  o.w = size.w; o.y = (size.h - offset.h)*0.5, o.h = offset.h;  break;
-      //   case "T"    : o.x = (size.w - offset.w)*0.5; o.w = offset.w; o.y =offset.y; o.h = offset.h;break;
-      //   case "B"    : o.x = (size.w - offset.w)*0.5; o.w = offset.w; o.y = size.h - offset.h; o.h = size.h;break;
-      //   case "LT"   : o.x = offset.x; o.y = offset.y; o.w = offset.w; o.h = offset.h; break;
-      //   case "RT"   : o.x = size.w - offset.w; o.w = size.w;  o.h = offset.h; o.y = offset.y; break;
-      //   case "LB"   : o.x = offset.x; o.w = offset.w; o.y = size.h - offset.h; o.h = size.h; break;
-      //   case "RB"   : o.x = size.w - offset.w;  o.w = size.w; o.y = size.h - offset.h; o.h = size.h; break;
-      //   case "C"    : o.x = (size.w - offset.w)*0.5; o.w = offset.w; o.y = (size.h - offset.h)*0.5, o.h = offset.h; break;
-      //   case "V"    : o.y = (size.h - offset.h)*0.5, o.h = offset.h; o.x = 0; o.w = size.w; break;
-      //   case "H"    : o.x = (size.w - offset.w)*0.5; o.w = offset.w; o.y = 0; o.h = size.h; break;
-      // }
       var rect = "rect("+ clip.top +"px "+ clip.right +"px "+ clip.bottom +'px ' + clip.left+'px)';
-      $elem.css({"clip" : rect});
+      elem.style.clip = rect;
     }
 
     /* ************************************************************
@@ -84,10 +76,8 @@ var $ = require('jQuery');
     function sizeUnitChange(value,originalsize){
       var num = value;
       if(typeof value == "string"){
-        // if(value.indexOf("px") > -1)num = Number(value.replace("px",""));
         if(value.indexOf("%") > -1){
           num = Number(value.replace("%",""));
-          // if(num > 100)num = 100;
           num = originalsize*num/100;
         }else{
           num = Number(value.replace("px",""));
@@ -98,8 +88,7 @@ var $ = require('jQuery');
 
 
     function clipApply(rect){
-      // $elem.css({"clip" : rect});
-      dom.style.clip = rect;
+      elem.style.clip = rect;
     }
 
     function changeToRect(p){

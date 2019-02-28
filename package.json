@@ -29,6 +29,7 @@
     "browserify": "^11.2.0",
     "dat.gui": "^0.7.2",
     "del": "^2.2.1",
+    "detect-passive-events": "^1.0.4",
     "es6-promise": "^3.0.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",

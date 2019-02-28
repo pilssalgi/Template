@@ -1,11 +1,16 @@
 'use strict';
 const checkPassive = require('../event/CheckPassive');
+const bind = require('lodash/bind');
 class Singleton {
   constructor(){
     if(!Singleton.instance){
       Singleton.instance = this;
     }
+      
     this.keys = {37: 1, 38: 1, 39: 1, 40: 1};
+    this.preventDefault = bind(this.preventDefault,this);
+    this.preventDefaultForScrollKeys = bind(this.preventDefaultForScrollKeys,this);
+
     this.eventOpt = checkPassive?{passive:false}:false;
   }
 
@@ -17,7 +22,8 @@ class Singleton {
   }
 
   preventDefaultForScrollKeys(e) {
-    if (keys[e.keyCode]) {
+    
+    if (this.keys[e.keyCode]) {
       this.preventDefault(e);
       return false;
     }

@@ -1,23 +1,22 @@
 /**
 * 2018.01
-* ver 0.1.1
+* ver 0.1.2
 * Author : Heonwongeun
 * FaceBook : https://www.facebook.com/heo.wongeun
 */
 
-const windowSize  = require('../util/WindowSize');
-const Bind        = require('../util/Bind');
+const bind 				= require('lodash/bind');
 const debounce    = require('lodash/debounce');
-const $ 				= require('jQuery');
+const assignIn 		= require('lodash/assignIn');
 
-var SelfPosition = function(element,option){
+const SelfPosition = function(element,option){
 	this.element       	= element;
 	this.progress      	= {crt:0,old:0,showUp:0,showUpTop:0,showUpHalf:0,showUpBottom:0};
 	this.isStageIn     	= false;
 	this.offset        	= null;
 	this.rect          	= null;
 	this.offsets 				= {min:0,max:1,showUpTop:false,showUpHalf:false,showUpBottom:false,showUpSelf:false};
-	$.extend(this.offsets,option);
+	assignIn(this.offsets,option);
 
 	this.setup();
 	return this;
@@ -25,15 +24,15 @@ var SelfPosition = function(element,option){
 
 
 SelfPosition.prototype.setup = function(){
-	this.resize = Bind(this.resize,this);
-	this.resizeDebounce = debounce(this.resize, 11);
+	// this.resize = Bind(this.resize,this);
+	// this.resizeDebounce = debounce(this.resize, 11);
 	// $(window).on('resize', debounce(this.resize, 10));
-	$(window).on('resize', this.resizeDebounce);//debounce(this.resize, 10));
-	this.resize();
+	// $(window).on('resize', this.resizeDebounce);//debounce(this.resize, 10));
+	// this.resize();
 	return this;
 }
 SelfPosition.prototype.kill = function(){
-	$(window).off('resize', this.resizeDebounce);
+	// $(window).off('resize', this.resizeDebounce);
 }
 
 SelfPosition.prototype.resize = function(){
