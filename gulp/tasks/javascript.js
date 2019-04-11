@@ -21,7 +21,7 @@ gulp.task('js',function(){
 
     if(i<n-1){
       browserify(url,{ debug: true })
-        .transform(babelify, {presets: ['env']})
+        .babelifyrm(babelify, config.js.babelify)
         .bundle()
         .pipe(source(name))
         .pipe(buffer())
@@ -30,7 +30,7 @@ gulp.task('js',function(){
         .pipe(gulp.dest(dest))
     }else{
       browserify(url,{ debug: true })
-      .transform(babelify, {presets: ['env']})
+      .transform(babelify, config.js.babelify)
       .bundle()
       .pipe(source(name))
       .pipe(buffer())
@@ -51,7 +51,7 @@ gulp.task('js:release',function(){
     var dest  = path.join(config.base.dest,arr.join('/'));
     if(i<n-1){
       browserify(url,{ debug: true })
-        .transform(babelify, {presets: ['env']})
+        .transform(babelify, config.js.babelify)
         .bundle()
         .pipe(source(name))
         .pipe(buffer())
@@ -61,7 +61,7 @@ gulp.task('js:release',function(){
         .pipe(gulp.dest(dest))
     }else{
       browserify(url,{ debug: true })
-        .transform(babelify, {presets: ['env']})
+        .transform(babelify, config.js.babelify)
         .bundle()
         .pipe(source(name))
         .pipe(buffer())

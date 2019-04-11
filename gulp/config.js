@@ -8,7 +8,8 @@ module.exports = {
     src   : 'js',
     dest  : './assets/js',
     watch : 'src/**/*.js',
-    files : ['src/assets/js/index.js']
+    files : ['src/assets/js/index.js'],
+    babelify:{presets: ['@babel/preset-env']}
   },
 
   copy: {
