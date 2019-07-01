@@ -16,6 +16,7 @@ import LoadManager from './modules/loader/LoadManager';
 
   	loadManager.onLoading = function(p){
   		console.log("p", p);
+      
   	}
   	loadManager.onLoaded = function(){
   		console.log('loaded');
