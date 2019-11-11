@@ -24,6 +24,8 @@
     "@babel/polyfill": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "autoprefixer": "^5.2.0",
+    "babel-plugin-inline-import": "^3.0.0",
+    "babel-plugin-root-import": "^6.4.1",
     "babelify": "^10.0.0",
     "browser-sync": "^2.9.11",
     "browserify": "^11.2.0",

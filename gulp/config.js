@@ -9,7 +9,23 @@ module.exports = {
     dest  : './assets/js',
     watch : 'src/**/*.js',
     files : ['src/assets/js/index.js'],
-    babelify:{presets: ['@babel/preset-env']}
+    babelify:{
+      presets: ['@babel/preset-env'],
+      plugins: [
+        [
+          'babel-plugin-root-import',
+          {
+            rootPathSuffix: 'src/assets/js',
+          },
+        ],
+        [
+          'babel-plugin-inline-import',
+          {
+            extensions: ['.vert', '.frag'],
+          },
+        ],
+      ],
+    }
   },
 
   copy: {
