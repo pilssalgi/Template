@@ -5,20 +5,23 @@ block vars
 			canonical: "",
 			title: "",
 			description: "",
-			pathName: "",
-			pathRoot: "",
 			keyword:"",
 			og: {
 				type:"website",
-				url:"",
+				url:"/",
+				site_name:'',
 				img:""
 			},
-			twitter: {}
+			twitter: {
+				site:'',
+				card:'summary_large_image',
+				title:'',
+				image:'',
+				description:''
+			}
 		}
 
-		var wp = false
 		var bodyClass = ""
-		var root = null
 
 doctype html
 html(lang=page.lang)
@@ -27,11 +30,11 @@ html(lang=page.lang)
 
 	body(class=bodyClass)
 		include /assets/images/symbols.svg
-		include ./_header
+		include ../common/_header
 		
 		main.pageContent
 			section.pageContentInner
 				block mainContent
 
-		include ./_footer
+			include ../common/_footer
 		include ./_script
