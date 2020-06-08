@@ -9,3 +9,8 @@ gulp.task('copy', function() {
     .pipe(gulp.dest(dest))
     .pipe(browserSync.reload({stream:true}));
 });
+
+gulp.task('copy:release', function() {
+  return gulp.src(config.copy.src)
+    .pipe(gulp.dest(dest))
+});

@@ -18,18 +18,8 @@ gulp.task('js',function(){
     var name  = arr.pop();
     arr.shift();
     var dest  = path.join(config.base.dest,arr.join('/'));
-
-    if(i<n-1){
-      browserify(url,{ debug: true })
-        .babelifyrm(babelify, config.js.babelify)
-        .bundle()
-        .on('error', handleErrors)
-        .pipe(source(name))
-        .pipe(buffer())
-        // .pipe(uglify())
-        .pipe(gulp.dest(dest))
-    }else{
-      browserify(url,{ debug: true })
+    var _browserify;
+    _browserify = browserify(url,{ debug: true })
       .transform(babelify, config.js.babelify)
       .bundle()
       .on('error', handleErrors)
@@ -37,38 +27,37 @@ gulp.task('js',function(){
       .pipe(buffer())
       // .pipe(uglify())
       .pipe(gulp.dest(dest))
-      .pipe(browserSync.stream())
+    
+    if(i <= n-1){
+      _browserify.pipe(browserSync.stream())
+      return _browserify
     }
+      
   }
 });
 
 gulp.task('js:release',function(){
+  let time = new Date();
   for(var i=0,n = config.js.files.length; i<n; i++){
     var url = config.js.files[i];
     var arr   = url.split('/');
     var name  = arr.pop();
     arr.shift();
     var dest  = path.join(config.base.dest,arr.join('/'));
-    if(i<n-1){
-      browserify(url,{ debug: true })
-        .transform(babelify, config.js.babelify)
-        .bundle()
-        .on('error', handleErrors)
-        .pipe(source(name))
-        .pipe(buffer())
-        .pipe(stripDebug())
-        .pipe(uglify())
-        .pipe(gulp.dest(dest))
-    }else{
-      browserify(url,{ debug: true })
-        .transform(babelify, config.js.babelify)
-        .bundle()
-        .on('error', handleErrors)
-        .pipe(source(name))
-        .pipe(buffer())
-        .pipe(stripDebug())
-        .pipe(uglify())
-        .pipe(gulp.dest(dest))
+    var _browserify
+    _browserify = browserify(url,{ debug: true })
+      .transform(babelify, config.js.babelify)
+      .bundle()
+      .on('error', handleErrors)
+      .pipe(source(name))
+      .pipe(buffer())
+      .pipe(stripDebug())
+      // .pipe(uglify())
+      .pipe(gulp.dest(dest))
+    
+    if(i >= n - 1){
+      return _browserify
     }
+    
   }
 });

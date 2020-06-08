@@ -26,3 +26,13 @@ gulp.task('scss', function() {
     .pipe(gulp.dest(paths.dest))
     .pipe(browserSync.reload({stream:true}));
 });
+gulp.task('scss:release', function() {
+  return gulp.src(config.css.src)
+    .pipe(sourcemaps.init())
+    .pipe(sass())
+    .on('error', handleErrors)
+    .pipe(autoprefixer(config.css.autoprefixer))
+    .pipe(sourcemaps.write())
+    .pipe(cleanCSS())
+    .pipe(gulp.dest(paths.dest))
+});

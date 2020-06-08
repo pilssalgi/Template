@@ -14,12 +14,17 @@ gulp.task("pug", function() {
 	gulp.src(
 		 ["src/**/*.pug",'!' + "src/**/_*.pug"] //参照するディレクトリ、出力を除外するファイル
 	)
-	// .pipe(data( file => {
- //      return JSON.parse(fs.readFileSync(`./src/pages.json`));
- //  }))
 	.pipe(pug({basedir: config.pug.basedir}))
 	.on('error', handleErrors)
 	.pipe(gulp.dest(paths.dest))
 	.pipe(browserSync.reload({stream:true}));
-	// .pipe(gulp.dest("dest/")) //出力先
+});
+
+gulp.task("pug:release", function() {
+	gulp.src(
+		 ["src/**/*.pug",'!' + "src/**/_*.pug"] //参照するディレクトリ、出力を除外するファイル
+	)
+	.pipe(pug({basedir: config.pug.basedir}))
+	.on('error', handleErrors)
+	.pipe(gulp.dest(paths.dest))
 });
