@@ -31,17 +31,11 @@ module.exports = {
   copy: {
     src : [
       'src/**/*',
-      '!src/**/base',
-      '!src/**/include',
-      '!src/**/include/**',
+      '!src/_**',
       '!src/**/css/**',
       '!src/**/css/**/*',
       '!src/**/js/**/*',
       '!src/**/js/**/*',
-      '!src/_constructor',
-      '!src/_constructor/**',
-      '!src/**/*.coffee',
-      '!src/**/*.jade',
       '!src/**/*.{sass,scss}',
       '!src/**/*.pug',
       '!src/common',

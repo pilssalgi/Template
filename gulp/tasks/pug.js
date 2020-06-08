@@ -5,6 +5,7 @@ var pug 				= require("gulp-pug");
 var data 				= require("gulp-data");
 var fs 					= require("fs");
 let browserSync   = require('browser-sync');
+let handleErrors  = require('../lib/handleErrors');
 
 var paths = {
 	dest: path.join(config.base.dest, config.html.dest)
@@ -17,6 +18,7 @@ gulp.task("pug", function() {
  //      return JSON.parse(fs.readFileSync(`./src/pages.json`));
  //  }))
 	.pipe(pug({basedir: config.pug.basedir}))
+	.on('error', handleErrors)
 	.pipe(gulp.dest(paths.dest))
 	.pipe(browserSync.reload({stream:true}));
 	// .pipe(gulp.dest("dest/")) //出力先
