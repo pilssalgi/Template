@@ -32,6 +32,7 @@ module.exports = {
     src : [
       'src/**/*',
       '!src/_**',
+      '!src/_**/**',
       '!src/**/css/**',
       '!src/**/css/**/*',
       '!src/**/js/**/*',
