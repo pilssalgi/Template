@@ -13,6 +13,7 @@ let stripDebug    = require( 'gulp-strip-debug' );
 
 gulp.task('js',function(){
   for(var i=0,n = config.js.files.length; i<n; i++){
+    console.log('i: ', i);
     var url = config.js.files[i];
     var arr   = url.split('/');
     var name  = arr.pop();
@@ -28,7 +29,7 @@ gulp.task('js',function(){
       // .pipe(uglify())
       .pipe(gulp.dest(dest))
     
-    if(i <= n-1){
+    if(i >= n-1){
       _browserify.pipe(browserSync.stream())
       return _browserify
     }
